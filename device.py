@@ -15,8 +15,18 @@
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
 # OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-# pip install paho-mqtt
-# pip install pytz
+#
+# See documentation for details:
+#  
+# https://docs.connio.com/docs/device-code-example
+#
+
+#
+# You are going to need the following modules:
+#  
+# `$pip install paho-mqtt` or `$pip3 install paho-mqtt`
+# `$pip install pytz` or `$pip3 install pytz`
+#
 
 from mqtthelper import Session
 from mqtthelper import CidMap
