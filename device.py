@@ -52,54 +52,54 @@ def readAndWrite(connection):
       else:
         now = datetime.utcnow().replace(microsecond=0).isoformat() + 'Z'
         
-        # See https://docs.connio.com/docs/data-point for different data formats
-        # See https://docs.connio.com/reference#using-mqtt-endpoint for writing data over MQTT API
-        # See https://docs.connio.com/reference#section-calling-method-using-mqtt-api for calling methods over MQTT API
+      # See https://docs.connio.com/docs/data-point for different data formats
+      # See https://docs.connio.com/reference#using-mqtt-endpoint for writing data over MQTT API
+      # See https://docs.connio.com/reference#section-calling-method-using-mqtt-api for calling methods over MQTT API
 
-        # Example 1
-        # Write single data point into single device property as value
-        # connection.publish("connio/data/out/devices/{}/properties/temperature".format(deviceId), 21.56)
+      # Example 1
+      # Write single data point into single device property as value
+      # connection.publish("connio/data/out/devices/{}/properties/temperature".format(deviceId), 21.56)
 
-        # Example 2
-        # Write multiple data points into single device property as data points
-        # Note that only one of the data points with the exact same time will be stored - so making artificial delta
-        #
-        # if (sys.version_info > (3, 0)):
-        #   t2 = (datetime.utcnow() - datetime.timedelta(seconds=2)).replace(tzinfo=datetime.timezone.utc).isoformat()
-        # else:
-        #   t2 = (datetime.utcnow() - datetime.timedelta(seconds=2)).isoformat() + 'Z'
-        #
-        # feed = {
-        #   'prop': 'temperature',        
-        #   'dps': [
-        #     { 't': now, 'v': 15.45},
-        #     { 't': t2, 'v': 15.48},
-        #   ]
-        # }
-        # data = json.dumps(feed)
-        # connection.publish("connio/data/out/devices/{}/json".format(deviceId), data)
+      # Example 2
+      # Write multiple data points into single device property as data points
+      # Note that only one of the data points with the exact same time will be stored - so making artificial delta
+      #
+      # if (sys.version_info > (3, 0)):
+      #   t2 = (datetime.utcnow() - datetime.timedelta(seconds=2)).replace(tzinfo=datetime.timezone.utc).isoformat()
+      # else:
+      #   t2 = (datetime.utcnow() - datetime.timedelta(seconds=2)).isoformat() + 'Z'
+      #
+      # feed = {
+      #   'prop': 'temperature',        
+      #   'dps': [
+      #     { 't': now, 'v': 15.45},
+      #     { 't': t2, 'v': 15.48},
+      #   ]
+      # }
+      # data = json.dumps(feed)
+      # connection.publish("connio/data/out/devices/{}/json".format(deviceId), data)
 
-        # Example 3        
-        # Write multiple data points into multiple device properties as data points
-        feed = {
-          'dps': [
-            { 't': now, 'v': 15.45, 'prop': 'temperature' },
-            { 't': now, 'v': 45.2, 'prop': 'humidity'},
-          ]
-        }
-        data = json.dumps(feed)
-        connection.publish("connio/data/out/devices/{}/json".format(deviceId), data)
+      # Example 3        
+      # Write multiple data points into multiple device properties as data points
+      feed = {
+        'dps': [
+          { 't': now, 'v': 15.45, 'prop': 'temperature' },
+          { 't': now, 'v': 45.2, 'prop': 'humidity'},
+        ]
+      }
+      data = json.dumps(feed)
+      connection.publish("connio/data/out/devices/{}/json".format(deviceId), data)
 
-        # Example 4
-        # Call a device method over MQTT (you can call multiple methods as well)
-        # feed = {'dps': [             
-        #     { 'method': 'setTemperature', 'value': 12.4 }
-        # ]}
-        # data = json.dumps(feed)
-        # connection.publish("connio/data/out/devices/{}/methods/json".format(deviceId), data)
+      # Example 4
+      # Call a device method over MQTT (you can call multiple methods as well)
+      # feed = {'dps': [             
+      #     { 'method': 'setTemperature', 'value': 12.4 }
+      # ]}
+      # data = json.dumps(feed)
+      # connection.publish("connio/data/out/devices/{}/methods/json".format(deviceId), data)
 
-        print("@TIME: " + now)
-        time.sleep(config.get('frequency', 5))
+      print("@TIME: " + now)
+      time.sleep(config.get('frequency', 5))
 
     print("----Message loop is terminated gracefully - disconnecting from the broker-----")
 
