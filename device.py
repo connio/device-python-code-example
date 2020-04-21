@@ -6,7 +6,7 @@ from mqtthelper import DeviceIdentity
 import time
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 import pytz
 import sys
 
@@ -48,7 +48,7 @@ def readAndWrite(connection):
     #
     while config.get('forever', True):
       if (sys.version_info > (3, 0)):
-        now = datetime.utcnow().replace(tzinfo=datetime.timezone.utc).isoformat()
+        now = datetime.utcnow().replace(tzinfo=timezone.utc).isoformat()
       else:
         now = datetime.utcnow().replace(microsecond=0).isoformat() + 'Z'
         
